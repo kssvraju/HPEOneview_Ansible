@@ -1,0 +1,5 @@
+ ---
+ local_action: command ansible --version
+  register: version
+  local_action: command python --version
+  register: version
