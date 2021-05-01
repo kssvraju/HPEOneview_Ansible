@@ -12,7 +12,7 @@
   hosts: all
   gather_facts: false
   roles:
-    - /Users/vasudevarajukurapati/Documents/gitansible/ansible/hponeview/roles/addserver
+    - HPEOneview_Ansible/roles/provisioning/tasks/addserver.yaml
   environment:
     PYTHONPATH: "$PYTHONPATH:/usr/share/ansible"
     ONEVIEWSDK_IP: 10.2.137.41 #"{{ oneview_auth.ip }}"
