@@ -1,0 +1,17 @@
+---
+# Add rack mount server to Oneview
+- name: Add a Server Hardware
+  hpe.oneview.oneview_server_hardware:
+    hostname: 10.2.137.41 #"{{ oneview_instance }}"
+    username: administrator #"{{ oneview_username }}"
+    password: changeme! #"{{ oneview_password }}"
+    api_version: 1200
+    data:
+      hostname : 10.2.144.11 #"{{ ILOipaddr }}"
+      username : administrator #"{{ username }}"
+      password : towerpoc #"{{ password }}"
+      force : false
+      licensingIntent: "OneView"
+      configurationState: "Managed"
+    state: present
+  delegate_to: localhost

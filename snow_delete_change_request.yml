@@ -1,0 +1,16 @@
+---
+- name: Deleting a change request in Service NOW
+  hosts: all
+  collections:
+    - servicenow.itsm
+
+  tasks:
+    - name: Delete change request
+      servicenow.itsm.change_request:
+        instance:
+          host: https://dev90177.service-now.com #"{{ SN_INSTANCE }}"
+          username: admin #"{{ SN_USERNAME }}"
+          password: mCJiAWUsef75 #"{{ SN_PASSWORD }}"
+
+        state: absent
+        number: CHG0030001

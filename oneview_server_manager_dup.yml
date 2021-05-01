@@ -1,0 +1,22 @@
+---
+- hosts: all
+  serial: 1
+  collections:
+    - hpe.oneview
+  vars:
+    config: "{{ playbook_dir }}/oneview_config.json"
+  tasks:
+# Add rack mount server to Oneview
+    - name: Add a Server Hardware
+      hpe.oneview.oneview_server_hardware:
+        config: "{{ config }}"
+        state: present
+        data:
+          hostname : "{{ ILOipaddr }}"
+          username : administrator #"{{ username }}"
+          password : towerpoc #"{{ password }}"
+          force : false
+          licensingIntent: "OneView"
+          configurationState: "Managed"
+      ignore_errors: true
+      delegate_to: localhost

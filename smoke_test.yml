@@ -1,0 +1,14 @@
+---
+hosts: all
+
+tasks:
+  - name: check for proper response
+    uri:
+      url: http://localhost/myapp
+      return_content: yes
+    register: result
+    until: '"Hello World" in result.content'
+    retries: 10
+    delay: 1
+
+# A website smoke test example that will look for the content "Hello World" 10 times, 1 second apart

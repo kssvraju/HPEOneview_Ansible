@@ -1,0 +1,7 @@
+---
+hosts: all
+gather_facts: False
+collections:
+    - hpe.oneview
+roles:
+  - oneview_hypervisor_manager

@@ -1,0 +1,3 @@
+---
+# vars file for oneview_hypervisor_manager
+vcenter_display_name: 'my_vcenter'

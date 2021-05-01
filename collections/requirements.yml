@@ -1,0 +1,9 @@
+---
+collections:
+- hpe.oneview
+- arista.cvp
+- servicenow.itsm
+# ansible-galaxy collection install hpe.oneview
+# ansible-galaxy collection install arista.cvp
+# ansible-galaxy collection install servicenow.itsm
+# /var/lib/awx/projects/.__awx_cache

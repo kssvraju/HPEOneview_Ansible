@@ -1,0 +1,17 @@
+---
+- name: Create a Hypervisor Manager
+  oneview_hypervisor_manager:
+    hostname: "{{ oneview_instance }}"
+    username: "{{ oneview_username }}"
+    password: "{{ oneview_password }}"
+    api_version: 1200
+    state: present
+    data:
+      name: "{{ vcenter_ip }}"
+      displayName: "{{ vcenter_display_name }}"
+      hypervisorType: 'Vmware'
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+# Create a survey or add an extra variable for " vcenter_display_name "
+# The Ansible Tower template will take 2 credentials. 
+# One for HPEoneview and one for vcenter.

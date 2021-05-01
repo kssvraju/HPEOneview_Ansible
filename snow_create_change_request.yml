@@ -1,0 +1,27 @@
+---
+- name: Creating a change request in Service NOW
+  hosts: all
+  collections:
+    - servicenow.itsm
+
+  tasks:
+    - name: Create change request
+      servicenow.itsm.change_request:
+        instance:
+          host: "{{ SN_HOST }}"
+          username: "{{ SN_USERNAME }}"
+          password: "{{ SN_PASSWORD }}"
+        type: standard
+        state: new
+        requested_by: admin
+        short_description: Install new Cisco2
+        description: Please install new Cat. 6500 in Data center 02
+        priority: moderate
+        risk: low
+        impact: low
+
+        other:
+          expected_start: 2021-05-12
+      register: snow_var
+      # delegate_to: localhost
+# https://github.com/ansible-collections/servicenow.itsm/blob/main/docs/servicenow.itsm.change_request_module.rst

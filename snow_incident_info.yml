@@ -1,0 +1,15 @@
+---
+- name: Retrieve change request info from Service NOW
+  hosts: all
+  collections:
+    - servicenow.itsm
+
+  tasks:
+    - name: Retrieving change requests info for {{ CR_number }}
+      servicenow.itsm.change_request_info:
+        instance:
+          host: "{{ SN_HOST }}"
+          username: "{{ SN_USERNAME }}"
+          password: "{{ SN_PASSWORD }}"
+        number: "{{ CR_number }}"
+      register: result

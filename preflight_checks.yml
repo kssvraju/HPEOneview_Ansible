@@ -1,0 +1,12 @@
+---
+- name: Preflight check example
+  hosts: all
+  gather_facts: False
+  vars:
+    network_backup_dir: "{{ server_profile_name }}"
+
+  tasks:
+  - name: 'Preflight Varible check :: server_profile_name'
+    fail: msg='Please include the server_profile_name to the variable "server_profile_name"'
+    run_once: true
+    when: 'server_profile_name is not defined'

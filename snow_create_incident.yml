@@ -1,0 +1,19 @@
+---
+- name: Sample Service NOW playbook
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Create a new incident
+      servicenow.itsm.incident:
+        # No sys_id or number because we are creating a new incident
+
+        # Common parameters
+        caller: admin
+        short_description: Demo with new SNOW collection incident
+        impact: low
+        urgency: low
+
+        # Other data
+        #other:
+          #problem_id: "{{ problem.record.sys_id }}"
