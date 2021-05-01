@@ -1,17 +1,50 @@
 ---
-# Add rack mount server to Oneview
-- name: Add a Server Hardware
-  hpe.oneview.oneview_server_hardware:
-    hostname: 10.2.137.41 #"{{ oneview_instance }}"
-    username: administrator #"{{ oneview_username }}"
-    password: changeme! #"{{ oneview_password }}"
-    api_version: 1200
-    data:
-      hostname : 10.2.144.11 #"{{ ILOipaddr }}"
-      username : administrator #"{{ username }}"
-      password : towerpoc #"{{ password }}"
-      force : false
-      licensingIntent: "OneView"
-      configurationState: "Managed"
-    state: present
+- name: check if server is in oneview
+  oneview_server_hardware_facts:
+    name: 10.2.144.11 #"{{ ilo_name }}"
+  register: server_facts_exists
   delegate_to: localhost
+  tags:
+  - mkserver
+
+- set_fact:
+    server_exists: false
+  when:
+  - server_facts_exists.ansible_facts.server_hardwares|length == 0
+  tags:
+  - mkserver
+- set_fact:
+    server_exists: true
+  when:
+  - server_facts_exists.ansible_facts.server_hardwares|length > 0
+  tags:
+  - mkserver
+
+- name: add a server to oneview
+  oneview_server_hardware:
+    state: present
+    data:
+      hostname: 10.2.144.11 #"{{ ilo_ip }}"
+      username: administrator #"{{ ilo_username }}"
+      password: towerpoc #"{{ ilo_pw }}"
+      force: false
+      licensingIntent: "OneViewNoiLO"
+      configurationState: "Managed"
+  register: server_facts_new
+  delegate_to: localhost
+  tags:
+  - mkserver
+  when:
+  - server_exists == false
+- set_fact:
+    server_facts: "{{ server_facts_new.ansible_facts.server_hardware }}"
+  tags:
+  - mkserver
+  when:
+  - server_exists == false
+- set_fact:
+    server_facts: "{{ server_facts_exists.ansible_facts.server_hardwares.0 }}"
+  tags:
+  - mkserver
+  when:
+  - server_exists == true
