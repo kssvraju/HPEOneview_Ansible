@@ -10,13 +10,12 @@
 
 - name: baremetal provisioning
   hosts: all
-  remote_user: root
   gather_facts: false
   roles:
-    - ../roles/provisioning
+    - /Users/vasudevarajukurapati/Documents/gitansible/ansible/hponeview/roles/addserver
   environment:
     PYTHONPATH: "$PYTHONPATH:/usr/share/ansible"
-    ONEVIEWSDK_IP: "{{ oneview_auth.ip }}"
-    ONEVIEWSDK_USERNAME: "{{ oneview_auth.username }}"
-    ONEVIEWSDK_PASSWORD: "{{ oneview_pw }}"
-    ONEVIEWSDK_API_VERSION: "{{ oneview_auth.api_version }}"
+    ONEVIEWSDK_IP: 10.2.137.41 #"{{ oneview_auth.ip }}"
+    ONEVIEWSDK_USERNAME: administrator #"{{ oneview_auth.username }}"
+    ONEVIEWSDK_PASSWORD: changeme! #"{{ oneview_pw }}"
+    ONEVIEWSDK_API_VERSION: 2200 #"{{ oneview_auth.api_version }}"
