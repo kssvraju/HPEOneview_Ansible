@@ -1,0 +1,17 @@
+---
+# tasks file for addserver
+- name: Add a Server Hardware to oneview
+  hpe.oneview.oneview_server_hardware:
+    hostname: "{{ oneview_instance }}"
+    username: "{{ oneview_username }}"
+    password: "{{ oneview_password }}"
+    api_version: 2200
+    data:
+      hostname : "{{ ILOipaddr }}"
+      username : "{{ username }}"
+      password : "{{ password }}"
+      force : false
+      licensingIntent: "OneView"
+      configurationState: "Managed"
+    state: present
+  delegate_to: localhost

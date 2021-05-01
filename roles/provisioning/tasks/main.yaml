@@ -1,5 +1,0 @@
----
-# set some vars
-- include: ./facts.yaml
-# add the server to oneview
-- include: ./addserver.yaml
