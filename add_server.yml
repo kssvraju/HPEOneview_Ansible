@@ -1,6 +1,0 @@
-- name: add server to OneView
-  hosts: all
-  collections:
-    - hpe.oneview
-  roles:
-    - addserver
