@@ -1,7 +1,7 @@
 ---
 - name: check if server is in oneview
   oneview_server_hardware_facts:
-    name: "{{ ilo_name }}"
+    name: 10.2.144.11 #"{{ ilo_name }}"
   register: server_facts_exists
   delegate_to: localhost
   tags:
@@ -24,9 +24,9 @@
   oneview_server_hardware:
     state: present
     data:
-      hostname: "{{ ilo_ip }}"
-      username: "{{ ilo_username }}"
-      password: "{{ ilo_pw }}"
+      hostname: 10.2.144.11 #"{{ ilo_ip }}"
+      username: administrator #"{{ ilo_username }}"
+      password: towerpoc #"{{ ilo_pw }}"
       force: false
       licensingIntent: "OneViewNoiLO"
       configurationState: "Managed"
