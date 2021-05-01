@@ -1,0 +1,6 @@
+---
+collections:
+- hpe.oneview
+- arista.cvp
+- arista.eos
+- servicenow.itsm

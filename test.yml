@@ -1,0 +1,79 @@
+---
+- hosts: all
+  collections:
+    - hpe.oneview
+  tasks:
+    - name: Add a Server Hardware to oneview
+      hpe.oneview.oneview_server_hardware:
+        hostname: "{{ oneview_instance }}"
+        username: "{{ oneview_username }}"
+        password: "{{ oneview_password }}"
+        api_version: 2200
+        data:
+          hostname : "{{ ILOipaddr }}"
+          username : "{{ username }}"
+          password : "{{ password }}"
+          force : false
+          licensingIntent: "OneView"
+          configurationState: "Managed"
+        state: present
+      delegate_to: localhost
+
+
+# power on server so storage adapters and NICS are discovered in Oneview
+    - name: Power On the server hardware
+      oneview_server_hardware:
+        config: "{{ config }}"
+        state: power_state_set
+        data:
+          name : "{{ server_hardware.name}}"
+          powerStateData:
+            powerState: "On"
+            powerControl: "MomentaryPress"
+      ignore_errors: true
+      delegate_to: localhost
+      register: result
+#    - debug:
+#        var: result
+# wait for server to boot up
+    - name: Pause for 5 minutes to wait for server to boot up
+      pause:
+       minutes: 5
+# gather facts about a server hardware
+#    - name: Gather facts about a Server Hardware by name
+#      oneview_server_hardware_facts:
+#        config: "{{ config }}"
+#        name: "{{ server_hardware.name }}"
+#      delegate_to: localhost
+
+# Power off the server before deploying profile
+    - name: Power Off the server hardware$
+      oneview_server_hardware:
+        config: "{{ config }}"
+        state: power_state_set
+        data:
+          name : "{{ server_hardware.name }}"
+          powerStateData:
+            powerState: "Off"
+            powerControl: "PressAndHold"
+      delegate_to: localhost
+
+# Create profile from template
+    - name: Create a Server Profile from a Server Profile Template
+      oneview_server_profile:
+        config: "{{ config }}"
+        data:
+          serverProfileTemplateName: "{{ ov_template }}"
+          serverHardwareUri: "{{ server_hardware.uri }}"
+          name: "{{ inventory_hostname }}"
+      delegate_to: localhost
+      register: result
+
+# Create custom kickstart file
+
+#mount Esxi ISO to ILO virtual media.  The ISO should already been  edited to point
+# to kickstart on on webserver
+
+# Waiting for the server boot to complete, test for Port 22
+
+#Bootstrap with Chef
